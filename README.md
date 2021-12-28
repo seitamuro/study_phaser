@@ -47,6 +47,47 @@ var config = {
 
 `physics`内で設定のプリセット`arcade`を設定し､それをデフォルトで使用するように指定している｡
 
-## 物理エンジンの利用
+## staticモードのオブジェクト
 
-生成したオブジェクトは自動的に
+重力などの影響を受けるオブジェクトは`dynamic`モードのオブジェクトであり､これらの影響を受けないオブジェクトは`static`モードのオブジェクトである｡
+
+生成したオブジェクトは自動的にデフォルトの物理エンジンの挙動が適用される｡これを外す場合､以下のように`this.physics.add.staticGroup`に含める必要がある｡
+```javascript
+platforms = this.physics.add.staticGroup()
+platforms.create(400, 568, "ground")
+```
+
+## 当たり判定の更新
+
+画像のサイズがそのまま当たり判定になる｡画像を拡大した場合､`refreshBody`関数を呼び出さなければ当たり判定が更新されない｡
+```javascript
+platforms = this.physics.add.staticGroup()
+platforms.create(400, 568, "ground").setScale(2).refreshBody()
+```
+
+## 接触判定の追加
+
+```
+this.physics.add.collider(player, platforms)
+```
+
+# アニメーション
+
+## アニメーションの読み込み
+
+連続画像がある場合はそれらを一定の幅で切り分けることでアニメーションを生成することができる｡実際のアニメーションは切り取った画像をどこからどこまで利用するのかを指定することで生成する｡
+
+```javascript
+this.load.spritesheet("dude", "assets/dude.png", { frameWidth: 32, frameHeight: 48})
+```
+
+## アニメーションの生成
+
+```javascript
+this.anims.create({
+    key: "left",
+    frames: this.anims.generateFrameNumbers("dude", { start:0, end: 3}),
+    frameRate: 10,
+    repeat: -1
+})
+```
