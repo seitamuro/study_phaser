@@ -1,4 +1,5 @@
-# 画像の読み込み
+# スプライト
+## 画像の読み込み
 ```javascript
 function preload() {
     this.load.image("sky", "assets/sky.png")
@@ -6,7 +7,7 @@ function preload() {
 ```
 第1引数で読み込んだ画像を呼び出すためのキー､第2引数で画像の場所を指定する｡
 
-# 画像を置く
+## 画像を置く
 ```javascript
 function create() {
     this.add.image(400, 300, "sky")
@@ -57,6 +58,31 @@ platforms = this.physics.add.staticGroup()
 platforms.create(400, 568, "ground")
 ```
 
+## オブジェクトを複数個追加する
+
+```javascript
+stars = this.physics.add.group({
+    key: "star",
+    repeat: 11,
+    setXY: { x: 12, y:0, stepX: 70 }
+})
+```
+
+## オブジェクト複数に対して処理を行う
+
+ここでは､各オブジェクトのBounceYをセットする
+```javascript
+stars.children.iterate((child) => {
+    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8))
+})
+```
+
+## 存在するオブジェクトの数を取得する
+
+```javascript
+stars.children.countActive()
+```
+
 ## 当たり判定の更新
 
 画像のサイズがそのまま当たり判定になる｡画像を拡大した場合､`refreshBody`関数を呼び出さなければ当たり判定が更新されない｡
@@ -69,6 +95,24 @@ platforms.create(400, 568, "ground").setScale(2).refreshBody()
 
 ```
 this.physics.add.collider(player, platforms)
+```
+
+## 各辺の当たり判定
+
+```javascript
+player.body.touching.down
+```
+
+## オブジェクトがあたったときの処理を指定する
+
+ここでは`this.physics.add.overlap`関数を利用して指定する｡ここで､第1引数と第2引数で衝突するオブジェクト､第3引数で衝突したときのコールバック関数を渡す｡
+
+```javascript
+const collectStar = (player, star) => {
+    star.disableBody(true, true)
+}
+
+this.physics.add.overlap(player, stars, collectStar, null, this)
 ```
 
 # アニメーション
@@ -90,4 +134,61 @@ this.anims.create({
     frameRate: 10,
     repeat: -1
 })
+```
+
+# シーン
+## シーンの生成
+
+`preload`関数､`create`関数､`update`関数を一組としたものをシーンという｡タイトル､ゲーム本編､リザルト画面などのように画面ごとにシーンを生成すると便利｡
+
+```javascript
+class Scene1 extends Phaser.Scene {
+    constructor() {
+        super("Scene1")
+    }
+
+    preload() {}
+    create() {}
+    update() {}
+}
+```
+
+上記の方法でシーンを生成することができ､このシーンを`config`にわたすことでシーン遷移ができるようになる｡一番はじめに渡したシーンからゲームは始まる｡
+
+```javascript
+import Scene1 from "./Scene1.js"
+import Scene2 from "./Scene2.js"
+import Scene3 from "./Scene3.js"
+
+var config = {
+    type: Phaser.AUTO,
+    backgroundColor: "#888888",
+    width: 800,
+    height: 600,
+    scene: [Scene1, Scene2, Scene3]
+}
+
+var game = new Phaser.Game(config)
+```
+
+## シーン遷移
+
+`this.scene.start("シーン名")`でシーンを遷移できる｡遷移できるシーンは`config`で指定したもののみ｡
+
+# 入力
+
+## カーソル
+
+```javascript
+cursors = this.input.keyboard.createCursorKeys()
+
+if (cursors.left.isDown) {
+} else if (cursors.right.isDown) {
+}
+```
+
+## マウス
+
+```javascript
+this.input.activePointer.isDown
 ```
