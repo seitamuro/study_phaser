@@ -1,3 +1,25 @@
+# グラフィック
+
+## グラフィック描写の準備
+
+[ここ](https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Graphics.html)に関数などが書かれている｡基本的に`graphics`に書くものの色や線のスタイルを指定し､具体的にどう書くかを関数で指定する｡
+
+```javascript
+var graphics = this.add.graphics(オプション)
+```
+
+## 塗りつぶされた円を書く
+
+`Phaser.Geom.Circle(x座標, y座標, 半径)`
+
+```javascript
+var circle = new Phaser.Geom.Circle(400, 300, 100)
+var graphics = this.add.graphics({fillStyle: { color: 0xff0000 }})
+graphics.fillCircleShape(circle)
+```
+
+## 基本的な
+
 # スプライト
 ## 画像の読み込み
 ```javascript
@@ -191,4 +213,20 @@ if (cursors.left.isDown) {
 
 ```javascript
 this.input.activePointer.isDown
+```
+
+## 一回マウスクリックされたとき
+
+```javascript
+this.input.once("pointerdown", () => {
+    console.log("mouse click!")
+})
+```
+
+# システム
+
+## キャンバスのサイズを取得
+
+```javascript
+var { width, height } = this.sys.canvas
 ```

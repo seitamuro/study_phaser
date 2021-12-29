@@ -1,0 +1,15 @@
+{
+  "name": "phaser3",
+  "version": "1.0.0",
+  "description": "```javascript\r function preload() {\r     this.load.image(\"sky\", \"assets/sky.png\")\r }\r ```\r 第1引数で読み込んだ画像を呼び出すためのキー､第2引数で画像の場所を指定する｡",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "phaser": "^3.55.2"
+  }
+}
