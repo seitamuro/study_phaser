@@ -1,6 +1,7 @@
 export default class Target extends Phaser.GameObjects.Arc {
     constructor(scene) {
-        super(scene, 100, 100, 100, 0, 360, false, 0xff0000, 0.0)
+        super(scene, 100, 100, 100, 0, 360, false, 0xff0000)
+        scene.children.add(this)
         this.create(scene)
     }
 
