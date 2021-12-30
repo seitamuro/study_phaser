@@ -5,16 +5,30 @@ export default class Targets extends Phaser.Physics.Arcade.Group {
         super(world, scene)
 
         this.classType = Target
+
     }
 
-    start() 
-    {
-        let target1 = new Target(this.scene, 100, 100, 50, 0xff0000)
-        let target2 = new Target(this.scene, 200, 100, 50, 0x00ff00)
-        let target3 = new Target(this.scene, 300, 100, 50, 0x0000ff)
+    start() {
+        this.timedEvent = this.scene.time.addEvent({
+            delay: 1000,
+            callback: this.spawn,
+            callbackScope: this,
+            loop: true
+        })
+    }
 
-        //this.add(target1, true)
-        //this.add(target2, true)
-        //this.add(target3, true)
+    stop() {
+        this.timedEvent.remove()
+    }
+
+    spawn() {
+        let {width, height} = this.scene.sys.canvas
+        let x = Phaser.Math.RND.between(0, width)
+        let y = Phaser.Math.RND.between(0, height/2)
+        let r = Phaser.Math.RND.between(50, 100)
+        let target = new Target(this.scene, x, y, r, 0xff0000)
+        this.add(target)
+        target.create()
+        target.on("clicked", target.hit)
     }
 }

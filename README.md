@@ -23,7 +23,12 @@ var graphics = this.add.graphics({fillStyle: { color: 0xff0000 }})
 graphics.fillCircleShape(circle)
 ```
 
-## 基本的な
+## テキスト
+
+```javascript
+this.scoreText = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#ffffff" })
+this.scoreText.setText("score: " + this.score)
+```
 
 # スプライト
 ## 画像の読み込み
@@ -105,6 +110,15 @@ class Targets extends Phaser.Physics.Arcade.Group
         this.classType = Target
     }
 }
+```
+
+## グループへオブエジェクトを追加する
+
+`add`関数を利用してオブジェクトを物理演算のグループに追加するとそれまでに設定した物理演算用のパラメータがリセットされることに注意｡
+
+```javascript
+var group = new Phaser.Physics.Arcade.Group()
+group.add(gameObject)
 ```
 
 ## オブジェクト複数に対して処理を行う
@@ -246,4 +260,27 @@ this.input.once("pointerdown", () => {
 
 ```javascript
 var { width, height } = this.sys.canvas
+```
+
+# イベント
+
+## 時間ごとのイベント
+```javascript
+this.scene.time.addEvent({
+    delay: 1000,
+    callback: this.spawn,
+    callbackScope: this,
+    loop: true
+})
+```
+
+## onとemit
+`on(イベント名, コールバック)`関数で`emit`関数で指定されたイベントが発生したときの処理を行う｡
+
+```javascript
+gameObject.on("clicked", () => {
+    console.log("clicked!")
+})
+
+gameObject.emit("clicked")
 ```
