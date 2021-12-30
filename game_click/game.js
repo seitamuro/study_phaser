@@ -8,7 +8,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
-        this.targets = new Targets(this.physics.world, this)
+        this.targets = new Targets(this.physics.world, this).setDepth(0)
         this.targets.start()
 
         this.input.on("gameobjectup", (pointer, gameObject) => {
@@ -17,6 +17,6 @@ export default class Game extends Phaser.Scene {
             this.scoreText.setText("score: " + this.score)
         })
 
-        this.scoreText  = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#ffffff"})
+        this.scoreText  = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#ffffff"}).setDepth(10)
     }
 }

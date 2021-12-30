@@ -30,6 +30,15 @@ this.scoreText = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#f
 this.scoreText.setText("score: " + this.score)
 ```
 
+## オブジェクトの深さ
+
+`setDepth`関数を利用してオブジェクトのz-indexの値を指定する｡数値が大きいほど前面に表示される｡
+
+```javascript
+gameObject1.setDepth(0)
+gameObject2.setDepth(100) // こっちが上
+```
+
 # スプライト
 ## 画像の読み込み
 ```javascript
