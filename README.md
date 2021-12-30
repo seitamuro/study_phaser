@@ -10,7 +10,12 @@ var graphics = this.add.graphics(オプション)
 
 ## 塗りつぶされた円を書く
 
-`Phaser.Geom.Circle(x座標, y座標, 半径)`
+`Phaser.Geom.Circle(x座標, y座標, 半径)`｡単にシーン上に追加する場合は`this.add.circle`関数を利用すると良い｡この関数は以下の処理をまとめたものなので､これを別のクラスとして分割する場合はシーンの`children`に追加することを忘れない｡ここでの`children`は`displayList`を示しており､ここに追加した`GameObject`のみが画面上に表示される｡
+
+```javascript
+var circle = new Phaser.GameObjects.Arc(scene, x, y, radius, startAngle, endAngle, antiClockwise, fillColor, fillAlpha)
+this.children.add(circle) // ここでのthisはPhaser.Scene､childrenはPhaser.displayList
+```
 
 ```javascript
 var circle = new Phaser.Geom.Circle(400, 300, 100)
@@ -80,7 +85,7 @@ platforms = this.physics.add.staticGroup()
 platforms.create(400, 568, "ground")
 ```
 
-## オブジェクトを複数個追加する
+## オブジェクトを複数個追加する(グループで管理する)
 
 ```javascript
 stars = this.physics.add.group({
@@ -88,6 +93,18 @@ stars = this.physics.add.group({
     repeat: 11,
     setXY: { x: 12, y:0, stepX: 70 }
 })
+```
+
+```javascript
+class Targets extends Phaser.Physics.Arcade.Group
+{
+    constructor(world, scene) 
+    {
+        super(world, scene)
+
+        this.classType = Target
+    }
+}
 ```
 
 ## オブジェクト複数に対して処理を行う

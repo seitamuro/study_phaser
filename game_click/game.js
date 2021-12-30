@@ -1,4 +1,5 @@
 import Target from "./Target.js"
+import Targets from "./Targets.js"
 
 export default class Game extends Phaser.Scene {
     constructor() {
@@ -6,9 +7,7 @@ export default class Game extends Phaser.Scene {
     }
 
     create() {
-        this.target = new Target(this)
-        this.physics.add.existing(this.target, false)
-        this.target.body.setCollideWorldBounds(true)
-        this.target.body.setBounce(1.0)
+        this.targets = new Targets(this.physics.world, this)
+        this.targets.start()
     }
 }
