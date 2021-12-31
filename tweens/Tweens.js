@@ -14,10 +14,24 @@ export default class Tweens extends Phaser.Scene {
 
     create()
     {
+        var {width, height} = this.sys.canvas
+
         this.time.addEvent({
             delay: 10,
             callback: this.throw,
             callbackScope: this,
+            loop: true
+        })
+
+        var sphere = this.add.image(width / 2, height / 2, "sphere")
+
+        this.tweens.add({
+            targets: sphere,
+            scaleX: 2,
+            scaleY: 2,
+            duration: 2000,
+            ease: "Power1",
+            yoyo: true,
             loop: true
         })
     }
