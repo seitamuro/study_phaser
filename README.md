@@ -293,3 +293,20 @@ gameObject.on("clicked", () => {
 
 gameObject.emit("clicked")
 ```
+
+# Tweens
+
+指定した値になるように時間ごとに値を段階的に変化させるもの｡`targets`に渡したオブジェクトのプロパティを`this.tweens.add`関数で指定する｡ここでは`sphere`の`y`が10になるように値を段階的に変化させている｡
+
+```javascript
+this.tweens.add({
+    targets: sphere,
+    y: 10,
+    duration: Phaser.Math.Between(500, 1000),
+    ease: "Power1",
+    yoyo: true,
+    onComplete: () => {
+        sphere.destroy()
+    }
+})
+```
