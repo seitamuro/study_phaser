@@ -13,8 +13,15 @@ export default class Game extends Phaser.Scene {
 
         this.input.on("gameobjectup", (pointer, gameObject) => {
             gameObject.emit("clicked")
-            this.score += 1
-            this.scoreText.setText("score: " + this.score)
+            if (gameObject.type == "score") {
+                this.score += 1
+                this.scoreText.setText("score: " + this.score)
+            } else {
+                var {width, height} = this.sys.canvas
+                this.gameoverText = this.add.text(width / 2, height / 2, "Game Over", {fontSize: "64px", fill: "#ffffff"}).setDepth(10).setOrigin(0.5, 0.5)
+                this.targets.stop()
+                this.input.off("gameobjectup")
+            }
         })
 
         this.scoreText  = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#ffffff"}).setDepth(10)
