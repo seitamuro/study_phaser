@@ -1,5 +1,3 @@
-import FireWork from "./FireWork.js"
-
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -14,12 +12,13 @@ var config = {
 function preload()
 {
     this.load.image("cube", "../assets/cube.png").setSca
+    this.emitters = []
 }
 
 function create()
 {
     this.particles = this.add.particles("cube")
-    this.emitter = this.particles.createEmitter({
+    this.emitters.push(this.particles.createEmitter({
         //frame: "cube",
         lifespan: 1000,
         speed: { min: 300, max: 400 },
@@ -28,9 +27,23 @@ function create()
         rotate: { start: 0, end: 360, ease: "Power2" },
         blendMode: "ADD",
         on: false
-    })
+    }))
 
-    this.emitter.explode(6, 100, 100)
+    this.emitters.push(this.particles.createEmitter({
+        lifespan: 2000,
+        scale: { start: 1, end: 5 },
+        speed: { min: 300, max: 400 }
+    }))
+
+    for(let i = 0; i < this.emitters.length; i++)
+    {
+        this.time.addEvent({
+            delay: 1000,
+            callback: () => this.emitters[i].explode(6, 100*i + 100, 100),
+            callbackScope: this,
+            loop: true
+        })
+}
 }
 
 var game = new Phaser.Game(config)
