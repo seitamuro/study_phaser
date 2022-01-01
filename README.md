@@ -317,3 +317,21 @@ this.tweens.add({
 |y|y座標|
 |scaleX|x方向の拡大率|
 |scaleY|y方向の拡大率|
+
+# パーティクル
+
+パーティクルは`this.add.particles`関数を使ってパーティクルとして利用するスプライトを指定し､エミッターを生成する際にパーティクルの挙動を指定する｡発生は`explode`関数を利用する｡
+
+```javascript
+this.particles = this.add.particles("cube")
+this.emitter = this.particles.createEmitter({
+    lifespan: 1000,
+    speed: { min: 300 max: 400 },
+    alpha: { start: 1, end: 0 },
+    scale: { start: 0.5, end: 0},
+    rotate: { start: 0, end: 360, ease: "Power2" },
+    blendMode: "ADD",
+    on: false
+})
+this.emitter.explode(6, 100, 100)
+```
