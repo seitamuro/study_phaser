@@ -29,12 +29,6 @@ function create()
         on: false
     }))
 
-    this.emitters.push(this.particles.createEmitter({
-        lifespan: 2000,
-        scale: { start: 1, end: 5 },
-        speed: { min: 300, max: 400 }
-    }))
-
     for(let i = 0; i < this.emitters.length; i++)
     {
         this.time.addEvent({

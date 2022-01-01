@@ -62,6 +62,16 @@ function create() {
 }
 ```
 
+## スプライトを円状に配置する
+
+```javascript
+var children = [this.add.sprite(0, 0, "cube"), this.add.sprite(0, 0, "cube")]
+Phaser.Actions.PlaceOnCircle(
+    children,
+    new Phaser.Geom.Circle(10, 10, 100)
+)
+```
+
 # 物理エンジン
 
 ## 設定
