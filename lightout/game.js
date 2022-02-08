@@ -8,6 +8,6 @@ export default class Game extends Phaser.Scene
     }
 
     create() {
-        var board = new Board(this.physics.world, this, 10, 10)
+        var board = new Board(this, 10, 10)
     }
 }
