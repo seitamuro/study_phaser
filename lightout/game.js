@@ -1,5 +1,4 @@
-import Board from "./Board.js"
-
+import Tile from "./Tile.js"
 export default class Game extends Phaser.Scene
 {
     constructor()
@@ -8,6 +7,6 @@ export default class Game extends Phaser.Scene
     }
 
     create() {
-        var board = new Board(this, 10, 10)
+        var tile = new Tile(this, 0, 0, 10, 10)
     }
 }
