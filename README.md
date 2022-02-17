@@ -23,6 +23,27 @@ var graphics = this.add.graphics({fillStyle: { color: 0xff0000 }})
 graphics.fillCircleShape(circle)
 ```
 
+もしくは`scene.add.existing`を利用して`Phaser.GameObjects.Circle`や`Phaser.GameObjects.Rectangle`を追加する｡
+
+```javascript
+var rectangle = new Phaser.GameObjects.Rectangle(0, 0, 10, 10, 0xff0000)
+this.add.existing(rectangle)
+```
+
+```javascript
+class MyRectangle extends Phaser.GameObjects.Rectangle
+{
+    constructor(scene)
+    {
+        super(scene, 0, 0, 10, 10, 0xff0000)
+
+        this.scene.add.existing(this)
+    }
+}
+
+var rectangle = new MyRectangle(this)
+```
+
 ## テキスト
 
 ```javascript

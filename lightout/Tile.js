@@ -1,4 +1,4 @@
-export default class Tile
+export default class Tile extends Phaser.GameObjects.Rectangle
 {
     /**
      * Create and add tile to scene.
@@ -11,39 +11,20 @@ export default class Tile
      */
     constructor(scene, x, y, width, height)
     {
+        super(scene, x, y, width, height)
+
         // define fields
-        this.scene = scene
-        this.x = x
-        this.y = y
-        this.width = width
-        this.height = height
-        this.status = "off"
         this.color_list = {
             "on": 0xffff00,
             "off": 0x888888
         }
+        this.status = Phaser.Math.RND.pick(Object.keys(this.color_list))
 
         // add tile to scene
-        this.tile = this.scene.add.rectangle(
-            self.x,
-            self.y,
-            self.width,
-            self.height,
-            this.getColor()
-        )
+        this.scene.add.existing(this)
 
-        // enable collision
-        this.tile.setInteractive()
-
-        // callback for clicked
-        this.tile.on("click", () => {
-            this.tap()
-        })
-
-        // if clicked, emit "click"
-        this.scene.input.on("gameobjectdown", (_pointer, gameObjects) => {
-            gameObjects.emit("click")
-        })
+        // set color
+        this.setFillStyle(this.getColor())
     }
 
     /**
@@ -63,7 +44,7 @@ export default class Tile
     {
         this.switchStatus()
 
-        this.tile.setFillStyle(this.getColor())
+        this.setFillStyle(this.getColor())
     }
 
     /**
