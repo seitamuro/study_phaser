@@ -8,8 +8,9 @@ export default class Tile extends Phaser.GameObjects.Rectangle
      * @param {number} y position y of tile
      * @param {number} width width of tile
      * @param {number} height height of tile
+     * @param {string} status state of tile. 'on' or 'off'.
      */
-    constructor(scene, x, y, width, height)
+    constructor(scene, x, y, width, height, status=undefined)
     {
         super(scene, x, y, width, height)
 
@@ -18,7 +19,12 @@ export default class Tile extends Phaser.GameObjects.Rectangle
             "on": 0xffff00,
             "off": 0x888888
         }
-        this.status = Phaser.Math.RND.pick(Object.keys(this.color_list))
+        var keys = Object.keys(this.color_list)
+        if (!keys.includes(status)) {
+            this.status = Phaser.Math.RND.pick(keys)
+        } else {
+            this.status = status
+        }
 
         // add tile to scene
         this.scene.add.existing(this)

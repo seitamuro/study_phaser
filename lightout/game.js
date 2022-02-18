@@ -18,6 +18,6 @@ export default class Game extends Phaser.Scene
 
     create() 
     {
-        var board = new Board(this, 0, 0, 5, 5, 10, 10)
+        var board = new Board(this, 40, 40, 5, 5, 40, 40, 10)
     }
 }
